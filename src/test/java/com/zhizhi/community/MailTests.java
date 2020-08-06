@@ -23,18 +23,18 @@ public class MailTests {
 
     @Test
     public void testTextMail() {
-        mailClient.sendMail("lihonghe@nowcoder.com", "TEST", "Welcome.");
+        mailClient.sendMail("mongo@189.cn", "TEST", "Welcome.");
     }
 
     @Test
     public void testHtmlMail() {
         Context context = new Context();
-        context.setVariable("username", "sunday");
+        context.setVariable("username", "Sunday");
 
         String content = templateEngine.process("/mail/demo", context);
         System.out.println(content);
 
-        mailClient.sendMail("lihonghe@nowcoder.com", "HTML", content);
+        mailClient.sendMail("mongo@189.cn", "HTML", content);
     }
 
 }
