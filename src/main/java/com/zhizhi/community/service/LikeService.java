@@ -18,23 +18,23 @@ public class LikeService {
     public void like(int userId, int entityType, int entityId, int entityUserId) {
         redisTemplate.execute(new SessionCallback() {
             @Override
-            public Object execute(RedisOperations operations) throws DataAccessException {
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
                 String entityLikeKey = RedisKeyUtil.getEntityLikeKey(entityType, entityId);
                 String userLikeKey = RedisKeyUtil.getUserLikeKey(entityUserId);
                 // 判断当前用户是否已经点过赞
-                boolean isMember = operations.opsForSet().isMember(entityLikeKey, userId);
+                boolean isMember = redisOperations.opsForSet().isMember(entityLikeKey, userId);
 
-                operations.multi();
+                redisOperations.multi();
 
                 if (isMember) {
-                    operations.opsForSet().remove(entityLikeKey, userId);
-                    operations.opsForValue().decrement(userLikeKey);
+                    redisOperations.opsForSet().remove(entityLikeKey, userId);
+                    redisOperations.opsForValue().decrement(userLikeKey);
                 } else {
-                    operations.opsForSet().add(entityLikeKey, userId);
-                    operations.opsForValue().increment(userLikeKey);
+                    redisOperations.opsForSet().add(entityLikeKey, userId);
+                    redisOperations.opsForValue().increment(userLikeKey);
                 }
 
-                return operations.exec();
+                return redisOperations.exec();
             }
         });
     }
