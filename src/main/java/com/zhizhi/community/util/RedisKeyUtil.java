@@ -34,4 +34,11 @@ public class RedisKeyUtil {
     public static String getFollowerKey(int entityType, int entityId) {
         return PREFIX_FOLLOWER + SPLIT + entityType + SPLIT + entityId;
     }
+
+    // 登录验证码
+    public static String getKaptchaKey(String owner){
+        return PREFIX_KAPTCHA + SPLIT + owner;
+    }
+
+    
 }
