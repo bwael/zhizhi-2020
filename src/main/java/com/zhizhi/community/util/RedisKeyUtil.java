@@ -36,9 +36,14 @@ public class RedisKeyUtil {
     }
 
     // 登录验证码
-    public static String getKaptchaKey(String owner){
+    public static String getKaptchaKey(String owner) {
         return PREFIX_KAPTCHA + SPLIT + owner;
     }
 
-    
+    // 登录的凭证
+    public static String getTicketKey(String ticket) {
+        return PREFIX_TICKET + SPLIT + ticket;
+    }
+
+
 }
